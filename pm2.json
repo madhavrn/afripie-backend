@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "afripie-api",
+      "script": "npm",
+      "args": "start"
+    }
+  ]
+}
