@@ -9,6 +9,8 @@ const multer = require("multer");
 // const config = require('./src/config');
 const indexRouter = require('./src/routes/index');
 const authRouter = require('./src/routes/auth');
+const userRouter = require('./src/routes/user');
+const transactionRouter = require('./src/routes/transaction');
 
 const middlewares = require('./src/middlewares');
 const app = express();
@@ -28,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', middlewares.verifyToken, userRouter);
+app.use('/api/v1/transaction', middlewares.verifyToken, transactionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

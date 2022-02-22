@@ -8,10 +8,17 @@ const { generateJWTToken } = require('../services/jwt')
 router.post('/signin', async function(req, res, next) {
   try {
     const {userID, password} = req.body;
-    const user = await db.User.findOne({ where: { userID } });
-    if (user) {if (bcrypt.compareSync(password, user.password)) {
+    const user = await db.User.findOne({
+      where: { userID },
+      include: [
+        { model: db.CreditCard, as: 'creditCard' },
+        { model: db.Bank, as: 'bank' },
+      ]
+    });
+    if (user) {
+      if (bcrypt.compareSync(password, user.password)) {
         const token = generateJWTToken({ userID }, "2h");
-        res.send({token, user});
+        res.send({ token, userId: user.uuid });
       } else {
         res.status(401).json({error: 'Wrong password'})
       }
