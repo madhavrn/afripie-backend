@@ -8,7 +8,7 @@
     "seed-undo": "sequelize db:seed:undo:all",
     "seed": "sequelize db:seed:all",
     "populate": "npm run migrate && npm run seed-undo && npm run seed",
-    "postinstall": "npm run populate"
+    "postinstall": "npm run migrate"
   },
   "dependencies": {
     "aws-sdk": "^2.932.0",
